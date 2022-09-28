@@ -5,10 +5,10 @@ using UnityEngine;
 public class PlacementController : MonoBehaviour
 {
     public string placeableTag;
-    public MeshFilter fakeSelectedPlaceableGO;
+    public Material fakeMaterial;
 
-    GameObject selectedPlaceableGO;
-    public Camera playerCamera; //TODO: private + cam current player
+    GameObject selectedGO, fakeGO;
+    public Camera playerCamera; //TODO: enlever public + cam current player
 
     void Start()
     {
@@ -17,35 +17,41 @@ public class PlacementController : MonoBehaviour
 
     void Update()
     {
-        if (selectedPlaceableGO)
+        if (selectedGO)
         {
             RaycastHit hit;
             Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit)) 
+            if (Physics.Raycast(ray, out hit))
             {
                 if (hit.transform.gameObject.tag == placeableTag)
                 {
-                    fakeSelectedPlaceableGO.gameObject.SetActive(true);
+                    fakeGO.SetActive(true);
                     if (Input.GetMouseButtonDown(0))
                     {
-                        Instantiate(selectedPlaceableGO, hit.point, Quaternion.identity);
+                        Instantiate(selectedGO, hit.point, Quaternion.identity);
                     }
-                    else if (fakeSelectedPlaceableGO)
+                    else if (fakeGO)
                     {
-                        fakeSelectedPlaceableGO.transform.position = hit.point;
+                        transform.position = hit.point;
                     }
                 }
+                else if (fakeGO)
+                {
+                    fakeGO.SetActive(false);
+                }
             } 
-            else if (fakeSelectedPlaceableGO)
+            else if (fakeGO)
             {
-                fakeSelectedPlaceableGO.gameObject.SetActive(false);
+                fakeGO.SetActive(false);
             }
         }
     }
 
     public void setSelectedPlaceableGameObject(GameObject g)
     {
-        selectedPlaceableGO = g;
-        fakeSelectedPlaceableGO.GetComponent<MeshFilter>().sharedMesh = g.GetComponent<MeshFilter>().sharedMesh;
+        selectedGO = g;
+        fakeGO = Instantiate(g.transform.GetChild(0).gameObject, transform);
+        fakeGO.GetComponent<Collider>().enabled = false;
+        fakeGO.GetComponent<MeshRenderer>().material = fakeMaterial;
     }
 }

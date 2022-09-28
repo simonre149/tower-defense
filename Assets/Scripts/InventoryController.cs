@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class InventoryController : MonoBehaviour
 {
-    public GameObject objectToPlace;
+    public GameObject placer, objectToPlace;
     PlacementController placementController;
 
     void Start()
     {
-        placementController = GetComponent<PlacementController>();
-        placementController.setSelectedPlaceableGameObject(objectToPlace);
+        placementController = placer.GetComponent<PlacementController>();
+        placementController.setSelectedPlaceableGameObject(objectToPlace); // TEMP
     }
 
     void Update()
