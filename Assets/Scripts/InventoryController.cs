@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InventoryController : MonoBehaviour
 {
-    public GameObject placer, objectToPlace;
+    public GameObject placer, objectToPlace, objectToPlace2;
     PlacementController placementController;
 
     void Start()
@@ -15,6 +15,9 @@ public class InventoryController : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.P)) //TEMP
+        {
+            placementController.setSelectedPlaceableGameObject(objectToPlace2);
+        }
     }
 }

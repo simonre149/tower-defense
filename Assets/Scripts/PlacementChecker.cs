@@ -4,18 +4,26 @@ using UnityEngine;
 
 public class PlacementChecker : MonoBehaviour
 {
-    public Material validMaterial, invalidMaterial;
-    public bool canBePlaced = false;
-    
-    private void OnCollisionEnter(Collision collision)
+    public bool canBePlaced = true;
+    public string placeableTag = "Placeable", agentTag = "Agent";
+    ArrayList currentlyColliding = new ArrayList();
+
+    private void OnTriggerEnter(Collider other)
     {
-        canBePlaced = false;
-        GetComponent<MeshRenderer>().material = invalidMaterial;
+        if (other.tag != placeableTag && other.tag != agentTag && !currentlyColliding.Contains(other))
+        {
+            currentlyColliding.Add(other);
+            canBePlaced = false;
+        }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider other)
     {
-        canBePlaced = true;
-        GetComponent<MeshRenderer>().material = validMaterial;
+        if (other.tag != placeableTag && currentlyColliding.Contains(other))
+        {
+            currentlyColliding.Remove(other);
+            if (currentlyColliding.Count == 0)
+                canBePlaced = true;
+        }
     }
 }

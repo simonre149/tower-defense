@@ -207,6 +207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placer: {fileID: 2058173345}
   objectToPlace: {fileID: 5938412775732215783, guid: 3a2729cffb797874d985409797d55b2e, type: 3}
+  objectToPlace2: {fileID: 5603105685524449420, guid: c882ce39c6e61a247a93edabe5b9e38d, type: 3}
 --- !u!1 &648054935
 GameObject:
   m_ObjectHideFlags: 0
@@ -1672,8 +1673,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e7e3574f217e1d468043c7d73fbed93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ignoreRaycastLayerIndex: 2
   placeableTag: Placeable
-  fakeMaterial: {fileID: 2100000, guid: a72e8fa4504a205449d2bbf8556e58e9, type: 2}
+  fakeValidPlaceMaterial: {fileID: 2100000, guid: 9db050e7ccbfc0148b19d00e56ace906, type: 2}
+  fakeInvalidPlaceMaterial: {fileID: 2100000, guid: 743553796c8c88f498f47503f1e9363e, type: 2}
   playerCamera: {fileID: 963194227}
 --- !u!1 &2060737044
 GameObject:
@@ -1688,6 +1691,7 @@ GameObject:
   - component: {fileID: 2060737048}
   - component: {fileID: 2060737047}
   - component: {fileID: 2060737046}
+  - component: {fileID: 2060737050}
   m_Layer: 0
   m_Name: Obstacle (5)
   m_TagString: Untagged
@@ -1789,6 +1793,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2060737044}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &2060737050
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060737044}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2093757902
 GameObject:
   m_ObjectHideFlags: 0
