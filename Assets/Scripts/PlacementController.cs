@@ -11,19 +11,15 @@ public class PlacementController : MonoBehaviour
     GameObject selectedGO, fakeGO;
     public Camera playerCamera; //TODO: enlever public + cam current player
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
-        if (selectedGO)
+        if (selectedGO && fakeGO)
         {
             RaycastHit hit;
             Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
+                updateFakeGO(hit.point);
                 if (hit.transform.gameObject.tag == placeableTag)
                 {
                     fakeGO.SetActive(true);
@@ -31,27 +27,18 @@ public class PlacementController : MonoBehaviour
                     {
                         Instantiate(selectedGO, hit.point, Quaternion.identity);
                     }
-                    else if (fakeGO)
-                    {
-                        transform.position = hit.point;
-                        setColor();
-                    }
-                }
-                else if (fakeGO)
-                {
-                    transform.position = hit.point;
-                    setColor();
                 }
             }
-            else if (fakeGO)
+            else
             {
                 fakeGO.SetActive(false);
             }
         }
     }
 
-    void setColor()
+    void updateFakeGO(Vector3 newPos)
     {
+        transform.position = newPos;
         fakeGO.GetComponent<MeshRenderer>().material = fakeGO.GetComponent<PlacementChecker>().canBePlaced ? fakeValidPlaceMaterial : fakeInvalidPlaceMaterial;
     }
 

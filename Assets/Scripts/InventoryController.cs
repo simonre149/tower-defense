@@ -19,5 +19,9 @@ public class InventoryController : MonoBehaviour
         {
             placementController.setSelectedPlaceableGameObject(objectToPlace2);
         }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            placementController.setSelectedPlaceableGameObject(null);
+        }
     }
 }
